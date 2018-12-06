@@ -1,0 +1,7 @@
+{
+    "name": "jochi/gerald",
+    "description": "Just a fun bot",
+    "require": {
+        "team-reflex/discord-php": "^4.0"
+    }
+}
