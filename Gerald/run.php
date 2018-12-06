@@ -15,7 +15,7 @@ $discord->on('ready', function ($discord) {
 });
 
 $discord->registerCommand('lol', function ($message){
-    $message->channel->sendMessage("I'm funny right");
+    $message->channel->sendMessage("I'm funny right, {$message->author->username}");
 });
 
 $discord->registerCommand('whoami', function ($message) {
