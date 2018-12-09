@@ -34,4 +34,29 @@ $discord->registerCommand('shrek', function ($message) {
     $message->channel->sendMessage($video." Hope you enjoy Shrek!");
 });
 
+$discord->registerCommand('rolld20', function ($message) {
+   $randNum = rand(1, 20);
+   $messages = array(
+        "WOW! Critical fail! Better luck next time!",
+        "Sadly your attack had no affect on the enemy... atleast you didn't critical fail.. ;)",
+        "Not bad! You hit your target. Could still be better though.,",
+        "The best of the best, your target has been decimated!"
+     );
+     $result = "You rolled ".$randNum.". ";
+
+     if($randNum == 1) {
+        $result.= $messages[0];
+     }
+     else if($randNum == 20) {
+        $result.= $messages[3];
+     }
+     else if($randNum <= 10) {
+        $result.= $messages[1];
+     }
+     else if($randNum >= 11) {
+        $result.= $messages[2];
+     }
+     $message->channel->sendMessage($result);
+});
+
 $discord->run();
