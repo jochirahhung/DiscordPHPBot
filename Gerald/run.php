@@ -5,7 +5,7 @@ use Discord\DiscordCommandClient;
 
 $discord = new DiscordCommandClient([
     'token' => 'NTIwMTE2MjY2ODAzOTIwODk4.DurjCw.4APtQ6eDYAXuJz-pKxyLAsDp_hI',
-    'prefix' => 'g~',
+    'prefix' => 'g/',
     'name' => 'Gerald',
 
 ]);
@@ -27,6 +27,11 @@ $discord->registerCommand('whoami', function ($message) {
   Unless someone brings up that I was made, I like to believe that I have some sort of purpose, but maybe you all can help me!
   ```";
     $message->channel->sendMessage($whoami);
+});
+
+$discord->registerCommand('shrek', function ($message) {
+    $video ="https://cdn.discordapp.com/attachments/500826878114791425/517835556097490996/Entire_Shrek_Movie.mp4";
+    $message->channel->sendMessage($video." Hope you enjoy Shrek!");
 });
 
 $discord->run();
