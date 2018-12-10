@@ -326,6 +326,7 @@ $discord->registerCommand('lenny', function ($message) {
         $lenny = "ヾ(⌐■_■)ノ♪";
         $message->channel->sendMessage($lenny);
     }
+});
 $discord->registerCommand('rolld20', function ($message) {
    $randNum = rand(1, 20);
    $messages = array(
@@ -352,3 +353,5 @@ $discord->registerCommand('rolld20', function ($message) {
 });
 
 $discord->run();
+
+?>
