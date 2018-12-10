@@ -25,28 +25,9 @@ $discord->registerCommand('commands', function ($commands) {
     "g/vid - returns a random video for your enjoyment \n".
     "g/meme - returns a tasty meme for your enjoyment \n".
     "g/rolld20 - rolls a d20 to to see if your attack hits \n".
-    "g/highground - you probably know what this is...");
-});
-
-$discord->registerCommand('highorlow', function ($message) {
-    $query = "select * from game where user='".$message->author->username."'";
-
-    $result = $mysqli->query($query);
-
-    $num_results = $result->num_rows;
-
-    if($num_results > 0) {
-        $message->channel->sendMessage("You already have a game going! Use command g/rollGame :*");
-    }
-    else {
-        $randNum = rand(1, 6);
-        $query = "insert into users (diceroll, user)
-        VALUES ('".$randNum."', '".$message->author->username."')";
-
-        $message->channel->sendMessage("Started you a game! Use command g/rollGame :*");
-    }
-
-
+    "g/highground - you probably know what this is...\n".
+    "g/pun - Fun Puns\n".
+    "g/lenny - ( ͡° ͜ʖ ͡°)");
 });
 
 $discord->registerCommand('highground', function ($message) {
