@@ -1,6 +1,8 @@
 <?php
 
 include __DIR__.'/vendor/autoload.php';
+include __DIR__.'/database/dbconfig.php';
+
 use Discord\DiscordCommandClient;
 
 $discord = new DiscordCommandClient([
@@ -10,8 +12,45 @@ $discord = new DiscordCommandClient([
 
 ]);
 
-$discord->on('ready', function ($discord) {
+$discord->on('ready', function ($discord) {         
     echo "Gerald is ONLINE!", PHP_EOL;
+});
+
+$discord->registerCommand('commands', function ($commands) {
+    $commands->channel->sendMessage("This is the list of commands: \n".
+    "g/commands - returns list of commands \n".
+    "g/lol - returns a funny message \n".
+    "g/whoami - description of Gerald \n".
+    "g/shrek - returns the shrek movie... \n".
+    "g/vid - returns a random video for your enjoyment \n".
+    "g/meme - returns a tasty meme for your enjoyment \n".
+    "g/rolld20 - rolls a d20 to to see if your attack hits \n".
+    "g/highground - you probably know what this is...");
+});
+
+$discord->registerCommand('highorlow', function ($message) {
+    $query = "select * from game where user='".$message->author->username."'";
+
+    $result = $mysqli->query($query);
+
+    $num_results = $result->num_rows;
+
+    if($num_results > 0) {
+        $message->channel->sendMessage("You already have a game going! Use command g/rollGame :*");
+    }
+    else {
+        $randNum = rand(1, 6);
+        $query = "insert into users (diceroll, user)
+        VALUES ('".$randNum."', '".$message->author->username."')";
+
+        $message->channel->sendMessage("Started you a game! Use command g/rollGame :*");
+    }
+
+
+});
+
+$discord->registerCommand('highground', function ($message) {
+    $message->channel->sendMessage("It's over {$message->author->username}, I have the highground!");
 });
 
 $discord->registerCommand('lol', function ($message){
@@ -106,12 +145,16 @@ $discord->registerCommand('meme', function ($message) {
     }
 });
 
+$discord->registerCommand('members', function ($message) {
+    $message->channel->sendMessage($message->channel->guild);
+});
+
 $discord->registerCommand('rolld20', function ($message) {
    $randNum = rand(1, 20);
    $messages = array(
         "WOW! Critical fail! Better luck next time!",
-        "Sadly your attack had no affect on the enemy... atleast you didn't critical fail.. ;)",
-        "Not bad! You hit your target. Could still be better though.,",
+        "Sadly your attack had no effect on the enemy... atleast you didn't critical fail..",
+        "Not bad! You hit your target. Could still be better though.",
         "The best of the best, your target has been decimated!"
      );
      $result = "You rolled ".$randNum.". ";
